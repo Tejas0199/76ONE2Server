@@ -15,7 +15,15 @@ app.use(cors({
 }))
 
 app.post('/users',(req,res) => {
-    console.log(req.body);
+    const userData = req.body;
+    console.log(userData);
+    userModel.create(userData,(err,data) => {
+        if(err) {
+            res.status(400).send({ msg : "not able to insert data" });
+        } else {
+           res.status(200).send({ msg : "successfully inserted data into DB" , data : data })
+        }
+    })
 })
 
 app.listen(PORT,hostName,async () => {
